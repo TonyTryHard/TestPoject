@@ -1,3 +1,3 @@
 # TestPoject
-It is test task for C++/Qt
-Meta: Tcp server / client with multithread implementation.
+It is test task for C++/Qt. 
+Topic: Tcp server / client with multithread implementation.
