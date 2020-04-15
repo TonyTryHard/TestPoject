@@ -17,7 +17,7 @@ class Client : public QObject
 {
     Q_OBJECT
 public:
-    explicit Client(QObject *parent = nullptr);
+    explicit Client(QObject *parent, long long quantity);
 
 public slots:
     void setSocket(tSocketDescriptor socketDescriptor);
@@ -28,6 +28,7 @@ public slots:
 private:
     QTcpSocket *socket;
     double m_seed;
+    long long m_quantity;
 };
 
 #endif // CLIENT_H

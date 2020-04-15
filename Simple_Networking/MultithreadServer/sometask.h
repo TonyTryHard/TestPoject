@@ -12,7 +12,7 @@ class SomeTask : public QObject, public QRunnable
     Q_OBJECT
 
 public:
-    SomeTask(double seed);
+    SomeTask(double seed, long long quantity);
 
 protected:
     void run() override;
@@ -22,6 +22,7 @@ signals:
 
 private:
     double m_seed;
+    long long m_quantity;
 };
 
 #endif // SOMETASK_H

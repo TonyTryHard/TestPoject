@@ -1,6 +1,6 @@
 #include "client.h"
 
-Client::Client(QObject *parent) : QObject(parent)
+Client::Client(QObject *parent, long long quantity) : QObject(parent), m_quantity(quantity)
 {
     //set up max thread pool count for app
     QThreadPool::globalInstance()->setMaxThreadCount(16);
@@ -38,7 +38,7 @@ void Client::readyRead()
     in >> m_seed;
     //qDebug() << "Have new seed: " << m_seed;
     //create a new instance of QRunnable to perform calculation
-    SomeTask *newTask = new SomeTask(m_seed);
+    SomeTask *newTask = new SomeTask(m_seed,m_quantity);
     //set flag for autodeleten after job is done
     newTask->setAutoDelete(true);
     //make connect between QRunnable and Client instance, use QueuedConnection, because they living in different threads

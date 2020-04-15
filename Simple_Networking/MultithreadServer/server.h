@@ -12,7 +12,7 @@ class Server : public QTcpServer
     Q_OBJECT
 
 public:
-    explicit Server(QObject *parent = nullptr, int portNumber = 0);
+    explicit Server(QObject *parent, int portNumber, long long quantity);
 
 public slots:
     void StartServer();
@@ -22,6 +22,7 @@ protected:
 
 private:
     int m_port;
+    long long m_quantity;
 
 };
 

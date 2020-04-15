@@ -1,7 +1,7 @@
 #include "server.h"
 
-Server::Server(QObject *parent, int portNumber)
-    : QTcpServer(parent), m_port(portNumber)
+Server::Server(QObject *parent, int portNumber, long long quantity)
+    : QTcpServer(parent), m_port(portNumber), m_quantity(quantity)
 {
 
 }
@@ -19,6 +19,6 @@ void Server::StartServer()
 void Server::incomingConnection(tSocketDescriptor handle)
 {
     //handle incoming connection for each client
-    Client *myClient = new Client(this);
+    Client *myClient = new Client(this, m_quantity);
     myClient->setSocket(handle);
 }
