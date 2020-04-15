@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     }
     //use Consumer object, which live in separate thread for data exchange with server
     QThread thread;
-    Consumer *consumer = new Consumer(nullptr,hostAddress,hostPort.toInt(),seed,pathToFile);
+    Consumer *consumer = new Consumer(nullptr,hostAddress,pathToFile,hostPort.toInt(),seed);
     consumer->moveToThread(&thread);
     QObject::connect(&thread, SIGNAL(started()),consumer, SLOT(doWork()));
     QObject::connect(consumer, SIGNAL(finished()),&a, SLOT(quit()));

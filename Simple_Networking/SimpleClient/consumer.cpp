@@ -2,17 +2,17 @@
 #include <QFileInfo>
 #include "consumer.h"
 
-Consumer::Consumer(QObject *parent, QString address, int port, double seed, QString pathToFile)
+Consumer::Consumer(QObject *parent, const QString& address, const QString& pathToFile, int port, double seed)
     : QObject(parent),tcpSocket(new QTcpSocket(this)), m_timer(new QTimer(this)),
-      address(address), m_port(port), m_seed(seed), filePath(pathToFile)
+      address(address), filePath(pathToFile), m_port(port), m_seed(seed)
 {
     //set device for QDataStream
     in.setDevice(tcpSocket);
     //set the same version of QDataStream as server has
     in.setVersion(QDataStream::Qt_5_0);
     //connect slots
-    connect(tcpSocket, &QAbstractSocket::connected,this,&::Consumer::onConnection);
-    connect(tcpSocket,&QIODevice::readyRead, this, &::Consumer::ReceivedData);
+    connect(tcpSocket, SIGNAL(connected()),this,SLOT(onConnection()));
+    connect(tcpSocket, SIGNAL(readyRead()), this, SLOT(ReceivedData()));
 }
 
 void Consumer::doWork()
@@ -48,7 +48,7 @@ void Consumer::ReceivedData()
 
     //if read vector size equal to null, ask again for data
     if ( !vec.size() ) {
-        QTimer::singleShot(0, this, &::Consumer::RequestData);
+        QTimer::singleShot(0, this, SLOT(RequestData()));
         return;
     }
 

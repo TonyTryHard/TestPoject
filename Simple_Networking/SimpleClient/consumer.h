@@ -10,8 +10,8 @@ class Consumer : public QObject
 {
     Q_OBJECT
 public:
-    explicit Consumer(QObject *parent = nullptr, QString address = nullptr,
-                      int port = 0, double seed = 0, QString pathToFile = nullptr);
+    explicit Consumer(QObject *parent, const QString& address,
+                      const QString& pathToFile, int port, double seed);
 
 signals:
     void finished();
@@ -25,11 +25,12 @@ public slots:
 private:
     QTcpSocket *tcpSocket = nullptr;
     QTimer *m_timer;
-    QDataStream in;
     QString address;
+    QString filePath;
+    QDataStream in;
     int m_port;
     double m_seed;
-    QString filePath;
+
 };
 
 #endif // CONSUMER_H
